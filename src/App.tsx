@@ -1,25 +1,37 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from 'react';
+import { DivGlobal } from './styles/app';
+
+
+const inicial_seconds = 25 * 60;
+
 
 function App() {
+
+
+const [amountseconds, setAmountSeconds] = useState(inicial_seconds);
+
+useEffect(() =>{
+
+  if( amountseconds > 0){
+
+  setTimeout(() => {
+    setAmountSeconds(state => state - 1);
+  }, 1000);
+}else{
+  alert(`chegou ao fim`)
+}
+},[amountseconds]);
+
+const minutes = Math.floor(amountseconds / 60);
+const seconds = amountseconds % 60;
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+   
+    <DivGlobal className='timer'>
+       <span>{String(minutes).padStart(2 , `0`)}</span>
+       <span>:</span>
+       <span>{String(seconds).padStart(2 , `0`)}</span>
+    </DivGlobal>
   );
 }
 
